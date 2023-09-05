@@ -1,28 +1,49 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/actions';
+import { nanoid } from 'nanoid';
 
-function ContactForm({ handleSubmit }) {
-  const [formData, setFormData] = useState({
-    name: '',
-    number: '',
-  });
+export default function ContactForm() {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  const dispatch = useDispatch();
+
+  const formSubmit = data => {
+    dispatch(addContact(data));
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = e => {
     e.preventDefault();
-    handleSubmit(formData);
-    setFormData({
-      name: '',
-      number: '',
-    });
+    const data = {
+      id: nanoid(),
+      name,
+      number,
+    };
+    formSubmit(data);
+    resetForm();
   };
 
-  const { name, number } = formData;
+  const handleFormChange = e => {
+    switch (e.currentTarget.name) {
+      case 'name':
+        setName(e.currentTarget.value);
+        break;
+
+      case 'number':
+        setNumber(e.currentTarget.value);
+        break;
+
+      default:
+        return;
+    }
+  };
+
+  const resetForm = () => {
+    setName('');
+    setNumber('');
+  };
 
   return (
     <form className={css.form} onSubmit={handleFormSubmit}>
@@ -56,9 +77,3 @@ function ContactForm({ handleSubmit }) {
     </form>
   );
 }
-
-ContactForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-};
-
-export default ContactForm;
