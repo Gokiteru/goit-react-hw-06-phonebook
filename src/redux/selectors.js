@@ -1,5 +1,4 @@
 import { createSelector } from "reselect";
-import { contactsReducer } from "./contactsReducer";
 
 const selectContacts = state => state.contactsReducer.items
 const selectFilter = state => state.contactsReducer.filter
