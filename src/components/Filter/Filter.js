@@ -1,13 +1,13 @@
-import { filterContact } from 'redux/actions';
+import { setFilter, getFilter } from 'redux/contactSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import css from './Filter.module.css';
 
 export default function Filter() {
-  const filter = useSelector(state => state.contactsReducer.filter);
+  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
   const handleChangeFilter = data => {
-    dispatch(filterContact(data));
+    dispatch(setFilter(data));
   };
 
   return (

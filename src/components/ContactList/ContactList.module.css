@@ -26,6 +26,7 @@
 
 .contactList{
     height: 300px;
+    width: 392px;
     overflow: scroll;
     overflow-x: hidden;
 }
