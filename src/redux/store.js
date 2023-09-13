@@ -21,12 +21,11 @@ import { persistReduce } from './contactSlice';
 
 export const store = configureStore({
   reducer: { contacts: persistReduce },
-  middleware: getDefaultMiddleware => 
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
 });
 
 export const persistor = persistStore(store);
